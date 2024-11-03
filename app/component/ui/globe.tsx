@@ -609,13 +609,14 @@
 
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Object3DNode, Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import countries from "@/data/globe.json";
 
+// Extend Three.js classes for use with @react-three/fiber
 declare module "@react-three/fiber" {
   interface ThreeElements {
     threeGlobe: Object3DNode<ThreeGlobe, typeof ThreeGlobe>;
@@ -682,7 +683,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
   const globeRef = useRef<ThreeGlobe | null>(null);
 
-  const defaultProps = {
+  // Memoize defaultProps to avoid re-creation on every render
+  const defaultProps = useMemo(() => ({
     pointSize: 1,
     atmosphereColor: "#ffffff",
     showAtmosphere: true,
@@ -697,7 +699,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     rings: 1,
     maxRings: 3,
     ...globeConfig,
-  };
+  }), [globeConfig]);
 
   const _buildMaterial = useCallback(() => {
     if (!globeRef.current) return;
@@ -766,8 +768,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcStartLng((d) => (d as Position).startLng)
       .arcEndLat((d) => (d as Position).endLat)
       .arcEndLng((d) => (d as Position).endLng)
- .arcColor((d:any) => (d as Position).color)
-.arcAltitude((d) => (d as Position).arcAlt)
+      .arcColor((d: any) => (d as Position).color)
+      .arcAltitude((d) => (d as Position).arcAlt)
       .arcStroke(() => [0.32, 0.28, 0.3][Math.round(Math.random() * 2)])
       .arcDashLength(defaultProps.arcLength)
       .arcDashInitialGap((d) => (d as Position).order)
@@ -783,8 +785,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .ringsData(globeData)
-       .ringColor((d:any) => (d as { color: string }).color)
-.ringMaxRadius(defaultProps.maxRings)
+      .ringColor((d: any) => (d as { color: string }).color)
+      .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
         (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
