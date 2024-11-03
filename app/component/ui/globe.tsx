@@ -768,7 +768,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcStartLng((d) => (d as Position).startLng)
       .arcEndLat((d) => (d as Position).endLat)
       .arcEndLng((d) => (d as Position).endLng)
-      .arcColor((d: any) => (d as Position).color)
+      .arcColor(() => defaultProps.polygonColor as string) // Assuming the library expects a consistent color.
       .arcAltitude((d) => (d as Position).arcAlt)
       .arcStroke(() => [0.32, 0.28, 0.3][Math.round(Math.random() * 2)])
       .arcDashLength(defaultProps.arcLength)
@@ -785,8 +785,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .ringsData(globeData)
-      .ringColor((d: any) => (d as { color: string }).color)
-      .ringMaxRadius(defaultProps.maxRings)
+      .ringColor(() => defaultProps.polygonColor as string)      .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
         (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
