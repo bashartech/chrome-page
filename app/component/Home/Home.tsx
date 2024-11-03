@@ -10,7 +10,7 @@ const frequentSites = [
   { name: "YouTube", url: "https://www.youtube.com", icon: "bxl-youtube" },
   { name: "GitHub", url: "https://www.github.com/bashartech", icon: "bxl-github" },
   { name: "Gmail", url: "https://www.gmail.com", icon: "bxl-gmail" },
-  { name: "Linkdin", url: "https://www.linkedin.com/bashartech", icon: "bxl-linkedin" },
+  { name: "Linkdin", url: "https://www.linkedin.com/in/m-bashar-sheikh?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", icon: "bxl-linkedin" },
   { name: "facebook", url: "https://www.facebook.com", icon: "bxl-facebook" },
   { name: "ChatGpt", url: "https://www.chatgpt.com", icon: "bxs-chat" },
   { name: "Portfolio", url: "https://bashar-portfolio-next-loujyu9ey-bashartechs-projects.vercel.app/?vercelToolbarCode=Q8EMBJA0tK_bqTo", icon: "bxl-redux" },
